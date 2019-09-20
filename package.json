@@ -1,0 +1,20 @@
+{
+  "name": "timeparser",
+  "version": "1.0.0",
+  "description": "Parses user entered times into a standard format",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "author": "Anth Lubic",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "ts-jest": "^24.1.0",
+    "jest": "^24.9.0",
+    "typescript": "^3.6.3"
+  }
+}
