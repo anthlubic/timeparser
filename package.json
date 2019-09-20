@@ -1,5 +1,5 @@
 {
-  "name": "timeparser",
+  "name": "@anthlubic/timeparser",
   "version": "1.0.0",
   "description": "Parses user entered times into a standard format",
   "main": "./lib/index.js",
