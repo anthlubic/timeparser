@@ -3,11 +3,26 @@ function num(s: string):number {
     return parseInt(s, 10);
 }
 
-function zeroPad(i: any):string {
-    return i.toString().padStart(2, '0');
+function zeroPad(i: string | number, amt: number = 2):string {
+    return i.toString().padStart(Math.min(amt, 2), '0');
 }
 
-export function timeparser(input: string): string | undefined {
+function formatTime(hour: number, minute: number, amOrPm: string, format: string) {
+    let hourPadAmt = format.replace(/[^h]+/g, '').length;
+    let displayAmPm = format.toLocaleLowerCase().includes('aa');
+
+    let hourDisplay = zeroPad(hour, hourPadAmt);
+    let minuteDisplay = zeroPad(minute);
+    let amPmDisplay = displayAmPm ? amOrPm : '';
+
+    let formattedTime = format
+        .replace(/h+/g, hourDisplay)
+        .replace(/m+/g, minuteDisplay)
+        .replace(/a+/g, amPmDisplay);
+    return formattedTime;
+}
+
+export function timeparser(input: string, format: string = 'h:mm aa'): string | undefined {
 
     const lowerInput = input.toLocaleLowerCase();
     const numeric = input.replace(/[^[0-9]/g, '');
@@ -21,7 +36,7 @@ export function timeparser(input: string): string | undefined {
     } else if (numeric.length === 3) {
         hour = num(numeric[0]);
         minute = num(numeric.substring(1))
-    } else if (numeric.length < 3) {
+    } else {
         hour = num(numeric);
         minute = 0;
     }
@@ -44,8 +59,7 @@ export function timeparser(input: string): string | undefined {
         amOrPm = 'PM';
     }
 
-    let returnStr = hour + ':' + zeroPad(minute) + ' ' + amOrPm;
-    return returnStr;
+    return formatTime(hour, minute, amOrPm, format);
 }
 
 export default timeparser;
